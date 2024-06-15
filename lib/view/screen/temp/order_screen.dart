@@ -19,6 +19,7 @@ class OrderScreen extends StatelessWidget {
     final int serviceID = Get.arguments[1];
     final int providerID = Get.arguments[2];
     ///////////////sakjdhjksahdkjsahdjkhaskdjhsajkhkdhkd//////////////
+    ///هي الصفحه منتاك اختا
     Get.put(ProviderInfoController(
         catID: catID, serviceID: serviceID, providerID: providerID));
     final orderController = Get.put(OrderController(providerId: providerID));
