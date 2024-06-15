@@ -1,5 +1,7 @@
 class AppLink {
-  static const String linkservername = "http://10.0.2.2:8080/mo";
+  //static const String linkservername = "http://10.0.2.2:8080/mo";
+  static const String linkservername =
+      "https://serfast.000webhostapp.com/serfast_API";
   // static const String linkservername = "http://192.168.1.102:8000/mo";
 
   static const String linksginup = "$linkservername/auth/signup.php";
