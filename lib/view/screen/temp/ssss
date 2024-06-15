@@ -1,0 +1,111 @@
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:untitled4/controller/categoryservices_controller.dart';
+// import 'package:untitled4/core/class/handelingdataview.dart';
+// import 'package:untitled4/core/constant/route_names.dart';
+// import 'package:untitled4/core/services/getxservices.dart';
+// import 'package:untitled4/data/model/categoryservices.dart';
+// import 'package:untitled4/view/widget/my_app_bar.dart';
+// import 'package:untitled4/view/widget/categoriesservices/myservices.dart';
+// import 'package:untitled4/view/widget/categoriesservices/providers_listview.dart';
+
+
+// class CategoryServiceScreen extends StatelessWidget {
+//   const CategoryServiceScreen({super.key});  
+  
+//   @override
+//   Widget build(BuildContext context) {
+//     MyAppServices myAppServices =Get.find();
+//     final int categoryID =Get.arguments[0];
+//     Get.put(CategoryServicesController(catID: categoryID));
+//     return Directionality(
+//         textDirection: TextDirection.ltr,
+//         child: Scaffold(
+//           appBar: const PreferredSize(
+//             preferredSize: Size.fromHeight(55),
+//             child: MyAppBar(title: "Services"),
+//           ),
+//           body: Directionality(
+//             textDirection: TextDirection.rtl,
+//             child: Padding(
+//               padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0, bottom: 20),
+//               child: Column
+//               (
+//                 children: [
+//                   Padding
+//                   (
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: RichText
+//                     (
+//                       text: TextSpan(children: 
+//                       [
+//                         TextSpan
+//                         (
+//                           text: 'Hi, ',
+//                           style: Theme.of(context).textTheme.labelMedium,
+//                         ),
+//                         TextSpan
+//                         (
+//                           text: myAppServices.sharedPreferences.getString("userfname"),
+//                           style: Theme.of(context).textTheme.labelMedium!
+//                           .copyWith(color:Theme.of(context).primaryColorLight),
+//                         ),
+//                       ])
+//                     ),
+//                   ), // Text
+//                   Padding(
+//                     padding: const EdgeInsets.only(
+//                       top: 16.0, left: 16.0, right: 16.0, bottom: 2),
+//                       child: TextField
+//                       (
+//                         keyboardType: TextInputType.text,
+//                         style: Theme.of(context).textTheme.labelSmall,
+//                         decoration: InputDecoration
+//                         (
+//                           hintText: "عن ماذا تبحث؟",
+//                           hintStyle: Theme.of(context).textTheme.labelMedium!
+//                           .copyWith(color: Colors.white.withOpacity(0.5),),
+//                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),),
+//                           suffixIcon: IconButton(
+//                             onPressed: () {},
+//                             icon: const Icon(Icons.search)
+//                         ),
+//                       ),
+//                     )
+//                   ),
+//                   Expanded( 
+//                     child: GetBuilder<CategoryServicesController>(builder: (controller) => 
+//                       HandlingDataView(
+//                         statusRequest: controller.statusRequest, 
+//                         widget: ListView.separated(
+//                         itemCount: controller.data.length,
+//                         separatorBuilder: (context , index1)=> const SizedBox(height: 5),
+//                         itemBuilder: (context, index1) =>
+//                         Padding(
+//                           padding: const EdgeInsets.only(bottom: 8.0),
+//                           child: Column(
+//                             children: [
+//                               MyServices
+//                               (
+//                                 categoryServicesModel: CategoryServicesModel.fromJson(controller.data[index1]),
+//                                 onPressedShowAll: ()=>Get.toNamed(AppRoute.showAllProviders,arguments: [categoryID])
+//                               ),
+//                               ProvidersListView
+//                               (categoryServicesModel: CategoryServicesModel.fromJson(controller.data[index1]))
+//                               ]
+//                             )
+//                           )
+//                         )
+//                       )
+//                     )
+//                   )
+//                 ]
+//               )
+//             )
+//           )
+//         )
+//       );
+//     }         
+//   }          
+
+
