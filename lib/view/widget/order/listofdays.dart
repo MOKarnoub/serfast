@@ -31,9 +31,7 @@ class ListOfDate extends StatelessWidget {
                       );
                       controller.updateSelectedDayCard(
                           index); // update Value for order and border
-                      if (hisDate != null) {
-                        controller.updateHisDate(hisDate);
-                      }
+                      controller.updateHisDate(hisDate!);
                     } else {
                       controller.updateSelectedDayCard(index);
                     }
