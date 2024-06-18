@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serfast0_1/controller/auth/loginwithnumber_controller.dart';
 import 'package:serfast0_1/controller/auth/signup_controller.dart';
 import 'package:serfast0_1/core/functions/alertexitapp.dart';
 import 'package:serfast0_1/core/functions/validator.dart';
@@ -125,6 +126,7 @@ class SignUp extends GetView<Signupctrlimp> {
                               ),
                               CustomSignupText(
                                 ONtap: () {
+                                  Get.put(LoginWithnumberctrlimp());
                                   signupCtrl.gotoLoginwithnumber();
                                 },
                                 Login_or_Signup: "Login",

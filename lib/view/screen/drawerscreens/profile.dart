@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serfast0_1/controller/auth/loginwithnumber_controller.dart';
 import 'package:serfast0_1/controller/profile_controller.dart';
 import 'package:serfast0_1/core/constant/route_names.dart';
 import 'package:serfast0_1/core/services/getxservices.dart';
@@ -130,6 +131,8 @@ class ProfileScreen extends StatelessWidget {
                               icon: Icons.logout,
                               title: "تسجيل الخروج",
                               onTap: () {
+                                // get.put();
+                                Get.put(LoginWithnumberctrlimp());
                                 Get.toNamed(AppRoute.loginWithNumber);
                                 myAppServices.sharedPreferences.remove("ID");
                               },

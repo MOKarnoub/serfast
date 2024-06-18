@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/auth/loginwithemail_controller.dart';
+import 'package:serfast0_1/controller/auth/loginwithnumber_controller.dart';
+import 'package:serfast0_1/controller/auth/signup_controller.dart';
 import 'package:serfast0_1/core/functions/alertexitapp.dart';
 import 'package:serfast0_1/core/functions/validator.dart';
 import 'package:serfast0_1/view/widget/auth/custom_Login_Button.dart';
@@ -80,6 +82,7 @@ class LoginWithemail extends StatelessWidget {
                               ),
                               CustomSignupText(
                                 ONtap: () {
+                                  Get.put(LoginWithnumberctrlimp());
                                   loginWithEmailCtrl.gotoLoginwithnumber();
                                 },
                                 Login_or_Signup: " Login with number",
@@ -132,6 +135,7 @@ class LoginWithemail extends StatelessWidget {
                               ),
                               CustomSignupText(
                                 ONtap: () {
+                                  Get.put(Signupctrlimp());
                                   loginWithEmailCtrl.gotosignup();
                                 },
                                 Login_or_Signup: "Sign up",

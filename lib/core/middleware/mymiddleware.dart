@@ -12,10 +12,8 @@ class MyMiddleware extends GetMiddleware {
   @override
   // ignore: body_might_complete_normally_nullable
   RouteSettings? redirect(String? route) {
-    // if (myAppServices.sharedPreferences.getString("OnBord")=="Done")
-    // {
+    // if (myAppServices.sharedPreferences.getString("OnBord") == "Done") {
     //   return const RouteSettings(name: AppRoute.signup);
-
     // }
     if (myAppServices.sharedPreferences.getInt("ID") != null) {
       return const RouteSettings(name: AppRoute.home);
