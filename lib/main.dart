@@ -7,6 +7,7 @@ import 'package:serfast0_1/routes.dart';
 // import 'package:serfast0_1/core/localization/changelocal.dart';
 import 'package:serfast0_1/core/localization/translation.dart';
 import 'package:serfast0_1/core/services/getxservices.dart';
+import 'package:serfast0_1/test.dart';
 // import 'package:serfast0_1/test.dart';
 
 void main() async {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       translations: MyTranslation(),
       initialBinding: InitialBindings(),
       // locale: localController.language,
-      // home: TestView(),
+      // home: Test(),
       // initialRoute: AppRoute.onboarding,
       // routes: routes,
       getPages: routes,

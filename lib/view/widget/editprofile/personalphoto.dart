@@ -40,10 +40,8 @@ class PersonlaPhoto extends StatelessWidget {
                                 controller.image!,
                                 fit: BoxFit.cover,
                               ))
-                          : const Icon(
-                              Icons.person,
-                              size: 110,
-                              color: Colors.white,
+                          : Image.network(
+                              "https://serfast.000webhostapp.com/serfast_API/upload/57752.jpg",
                             )), // if(have image) Image.assets : Icon(person)
                 ],
               ),

@@ -1,41 +1,66 @@
-// import 'package:awesome_dialog/awesome_dialog.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:loading_animation_widget/loading_animation_widget.dart';
-// import 'package:lottie/lottie.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:untitled4/core/functions/getcurrentlocation.dart';
 
-// class Test extends StatelessWidget {
-//   const Test({super.key});
+class Test extends StatefulWidget {
+  Test({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: Colors.amber,
-//       // padding: EdgeInsets.only(top: 300),
-//       alignment: Alignment.center,
-//       child: MaterialButton(
-//         onPressed: ()
-//         {
-//           determinePosition();
-//           // Center(child: Lottie.asset("assets/lottie/loader.json",width: 250,height: 150 ));
-          
-//             // Color.fromRGBO(0,153,255, 1),
-//             // Color.fromRGBO(0,204,153, 1),
-//             // Color.fromRGBO(0,211,88, 1),
-//           //  Get.defaultDialog(
-//           //   middleText: '',
-//           //   title: '',
-//           //   backgroundColor: Color.fromARGB(1, 1, 1, 0),
-//           //   actions: [ Center(child: Lottie.asset("assets/lottie/loader.json",width: 250,height: 150 ))]
-//           //  );
-//         },
-//         child: Text("ks"),
-//         color: Colors.red,
-//         ),
-//     );
-//   }
-// }
+  @override
+  State<Test> createState() => MapSampleState();
+}
+
+class MapSampleState extends State<Test> {
+  CameraPosition cameraPosition =
+      const CameraPosition(target: LatLng(36.231918, 37.168072), zoom: 12);
+  GoogleMapController? gmc;
+  List<Marker> markers = [
+    const Marker(
+        markerId: MarkerId("1"), position: LatLng(36.231918, 37.168072))
+  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Google Maps"),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+                child: GoogleMap(
+              onTap: (LatLng latlang) {
+                print("==================");
+                print(latlang.latitude);
+                print(latlang.longitude);
+                print("==================");
+                setState(() {
+                  markers.add(Marker(
+                      markerId: MarkerId("1"),
+                      position: LatLng(latlang.latitude, latlang.longitude)));
+                });
+              },
+              markers: markers.toSet(),
+              initialCameraPosition: cameraPosition,
+              mapType: MapType.normal,
+              onMapCreated: (controller) {
+                gmc = controller;
+              },
+            ))
+          ],
+        ),
+      ),
+    );
+  }
+}
 // // import 'package:flutter/material.dart';
 // // import 'package:get/get.dart';
 // // import 'package:untitled4/controller/changepassword_controller.dart';
@@ -60,12 +85,12 @@
 // //         appBar: PreferredSize(
 // //           preferredSize: const Size.fromHeight(70),
 // //           child: MyAppBar
-// //           ( 
+// //           (
 // //             title: "Edit Profile",
-// //             leading: IconButton(onPressed: () 
+// //             leading: IconButton(onPressed: ()
 // //             {
 // //               Get.offAllNamed(AppRoute.profileScreen);
-// //             }, 
+// //             },
 // //             icon:const Icon(Icons.arrow_back_ios_new_rounded)
 // //             )
 // //           ),
