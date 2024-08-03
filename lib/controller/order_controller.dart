@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 import 'package:serfast0_1/core/services/getxservices.dart';
 import 'package:serfast0_1/data/model/date_card.dart';
@@ -29,7 +31,8 @@ class OrderController extends GetxController {
     'السبت',
     'الأحد'
   ];
-  final monthsInYear = [
+  final monthsInYear = 
+  [
     'يناير',
     'فبراير',
     'مارس',
@@ -72,6 +75,7 @@ class OrderController extends GetxController {
   void updateHisDate(DateTime hisDate) {
     this.hisDate = hisDate;
     showHisDate = true;
+    print(hisDate);
     update();
   }
 
@@ -86,6 +90,7 @@ class OrderController extends GetxController {
     } else {
       selectedDayCard = day;
     }
+    print(day);
     update();
   }
 
@@ -95,6 +100,7 @@ class OrderController extends GetxController {
     } else {
       selectedHourCard = hour;
     }
+    print({listHours[hour]});
     update();
   }
 
