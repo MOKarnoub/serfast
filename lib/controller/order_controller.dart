@@ -31,8 +31,7 @@ class OrderController extends GetxController {
     'السبت',
     'الأحد'
   ];
-  final monthsInYear = 
-  [
+  final monthsInYear = [
     'يناير',
     'فبراير',
     'مارس',
@@ -90,7 +89,7 @@ class OrderController extends GetxController {
     } else {
       selectedDayCard = day;
     }
-    print(day);
+    print("$day===========================");
     update();
   }
 

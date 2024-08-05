@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/order_controller.dart';
+import 'package:serfast0_1/controller/providerinfo_controller.dart';
+import 'package:serfast0_1/view/widget/order/addicon.dart';
+import 'package:serfast0_1/view/widget/order/daycontainer.dart';
 
 class ListOfDate extends StatelessWidget {
   final OrderController controller;
-  const ListOfDate({super.key, required this.controller});
+  final ProviderInfoController providerInfoController;
+  const ListOfDate(
+      {super.key,
+      required this.controller,
+      required this.providerInfoController});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,7 +32,7 @@ class ListOfDate extends StatelessWidget {
                           return Theme(
                               data: Theme.of(context).copyWith(
                                   colorScheme: const ColorScheme.dark(
-                                      primary: Colors.orangeAccent)),
+                                      primary: Colors.green)),
                               child: child!);
                         },
                       );
@@ -37,14 +44,14 @@ class ListOfDate extends StatelessWidget {
                     }
                   },
                   child: controller.showHisDate
-                      ? buildDateCardContainer(
-                          controller: controller,
-                          context: context,
+                      ? Daycontainer(
                           index: index,
+                          context: context,
                           weekDay: controller.hisDate!.weekday,
                           month: controller.hisDate!.month,
-                          day: controller.hisDate!.day)
-                      : buildIconAdd(context),
+                          day: controller.hisDate!.day,
+                          controller: controller)
+                      : AddIcon(context: context),
                 ),
               );
             } else {
@@ -53,7 +60,7 @@ class ListOfDate extends StatelessWidget {
                   controller.updateSelectedDayCard(index);
                 },
                 child: GetBuilder<OrderController>(
-                  builder: (controller) => buildDateCardContainer(
+                  builder: (controller) => Daycontainer(
                       controller: controller,
                       index: index,
                       context: context,
@@ -68,47 +75,4 @@ class ListOfDate extends StatelessWidget {
           itemCount: controller.listDateCard.length),
     );
   }
-}
-
-Container buildIconAdd(BuildContext context) {
-  return Container(
-    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).colorScheme.surface),
-    child: const Center(
-      child: Icon(Icons.add, size: 31),
-    ),
-  );
-}
-
-Container buildDateCardContainer(
-    {required OrderController controller,
-    required int index,
-    required BuildContext context,
-    required int weekDay,
-    required int month,
-    required int day}) {
-  return Container(
-    width: 90,
-    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: controller.selectedDayCard == index
-            ? Border.all(color: Colors.greenAccent, width: 2)
-            : null,
-        color: Theme.of(context).colorScheme.surface),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(controller.daysInWeek[weekDay - 1],
-            style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
-        Text(controller.monthsInYear[month - 1],
-            style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
-        Text(day.toString(), style: Theme.of(context).textTheme.bodySmall)
-      ],
-    ),
-  );
 }
