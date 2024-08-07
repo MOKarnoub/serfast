@@ -80,24 +80,28 @@ class AboutProvider extends StatelessWidget {
                               .workTime![0].dayList![index].hour!.length,
                           itemBuilder: (context, index1) => Text(
                             providerModel.workTime![0].dayList![index].hour!
-                                        .length ==
-                                    1
+                                            .length ==
+                                        1 ||
+                                    index1 ==
+                                        providerModel.workTime![0]
+                                                .dayList![index].hour!.length -
+                                            1
                                 ? providerModel.workTime![0].dayList![index]
                                                 .hour![index1] >
                                             0 &&
                                         providerModel.workTime![0]
                                                 .dayList![index].hour![index1] <
                                             12
-                                    ? "${providerModel.workTime![0].dayList![index].hour![index1]}AM"
-                                    : "${providerModel.workTime![0].dayList![index].hour![index1] - 12}PM"
+                                    ? " ${providerModel.workTime![0].dayList![index].hour![index1]} AM "
+                                    : " ${providerModel.workTime![0].dayList![index].hour![index1] - 12} PM "
                                 : providerModel.workTime![0].dayList![index]
                                                 .hour![index1] >
                                             0 &&
                                         providerModel.workTime![0]
                                                 .dayList![index].hour![index1] <
                                             12
-                                    ? "${providerModel.workTime![0].dayList![index].hour![index1]}AM ,"
-                                    : "${providerModel.workTime![0].dayList![index].hour![index1] - 12}PM ,",
+                                    ? " ${providerModel.workTime![0].dayList![index].hour![index1]} AM , "
+                                    : " ${providerModel.workTime![0].dayList![index].hour![index1] - 12} PM , ",
                             style: Theme.of(context).textTheme.bodySmall,
                             textAlign: TextAlign.start,
                           ),

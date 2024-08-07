@@ -22,7 +22,7 @@ class Signupctrlimp extends Signupctrl {
   late TextEditingController phoneNumber;
   late TextEditingController password;
   late TextEditingController location;
-  late StatusRequest statusRequest;
+  StatusRequest? statusRequest;
 
   @override
   gotoLoginwithnumber() {
@@ -33,6 +33,7 @@ class Signupctrlimp extends Signupctrl {
   signup() async {
     if (formstatekey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
+      update();
       var response = await signupData.postData(
         firstName.text,
         lastName.text,
@@ -45,27 +46,31 @@ class Signupctrlimp extends Signupctrl {
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response["Status"] == "Success") {
-          // myAppServices.sharedPreferences.setInt("ID", response["data"]["ID"]);
-          // myAppServices.sharedPreferences
-          //     .setString("userfname", response['data']['FirstName'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("userlname", response['data']['LastName'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("email", response['data']['Email'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("phonenumber", response['data']['Number'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("password", response['data']['Password'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("location", response['data']['Locations'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("birthday", response['data']['Birthday'].toString());
-          // myAppServices.sharedPreferences
-          //     .setString("prov_id", response['data']['prov_id'].toString());
+          myAppServices.sharedPreferences.setInt("ID", response["data"]["ID"]);
+          myAppServices.sharedPreferences
+              .setString("userfname", response['data']['FirstName'].toString());
+          myAppServices.sharedPreferences
+              .setString("userlname", response['data']['LastName'].toString());
+          myAppServices.sharedPreferences
+              .setString("email", response['data']['Email'].toString());
+          myAppServices.sharedPreferences
+              .setString("phonenumber", response['data']['Number'].toString());
+          myAppServices.sharedPreferences
+              .setString("password", response['data']['Password'].toString());
+          myAppServices.sharedPreferences
+              .setString("location", response['data']['Locations'].toString());
+          myAppServices.sharedPreferences
+              .setString("birthday", response['data']['Birthday'].toString());
+          myAppServices.sharedPreferences
+              .setString("prov_id", response['data']['prov_id'].toString());
           Get.offNamed(AppRoute.emailVerfiyCode,
-              arguments: [AppRoute.successSignup]);
-        } else {
+              arguments: [AppRoute.successSignup, email.text]);
+        } else if (response["Status"] == "Failed") {
+          Get.defaultDialog(
+              title: "warning",
+              middleText: "phone number or email is already exist");
           statusRequest == StatusRequest.failure;
+          update();
         }
       }
       update();

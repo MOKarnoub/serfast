@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:serfast0_1/core/class/statusrequest.dart';
 
 class HandlingDataView extends StatelessWidget {
-  final StatusRequest statusRequest;
+  final StatusRequest? statusRequest;
   final Widget widget;
   const HandlingDataView(
       {super.key, required this.statusRequest, required this.widget});

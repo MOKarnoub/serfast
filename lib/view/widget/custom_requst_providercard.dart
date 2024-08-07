@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 class CustomProviderCard extends StatelessWidget {
   String providerName;
   String serviceDate;
-  int providerRate;
+  double providerRate;
   String providerImage;
-  double servicePrice;
+  int servicePrice;
   void Function() onPressedIcon;
-  CustomProviderCard
-  ({
+  CustomProviderCard({
     super.key,
     required this.providerName,
     required this.providerImage,
@@ -41,7 +40,7 @@ class CustomProviderCard extends StatelessWidget {
                         height: 63,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(63),
-                            image:  DecorationImage(
+                            image: DecorationImage(
                               image: AssetImage(providerImage),
                               fit: BoxFit.fitHeight,
                             )),
@@ -81,14 +80,11 @@ class CustomProviderCard extends StatelessWidget {
                   Text(serviceDate,
                       style: Theme.of(context).textTheme.bodySmall),
                   Text("$servicePrice",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium
-                          ?.copyWith(
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             color: Theme.of(context).primaryColor,
                           )),
                   Text(
-                    "تم",
+                    "Done",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
@@ -103,7 +99,7 @@ class CustomProviderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed:onPressedIcon ,
+                  onPressed: onPressedIcon,
                   icon: Icon(
                     Icons.help_outline,
                     color: Theme.of(context).primaryColor,
@@ -112,7 +108,7 @@ class CustomProviderCard extends StatelessWidget {
               ],
             ),
           ),
-        ), 
+        ),
       ],
     );
   }

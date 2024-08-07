@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/auth/loginwithnumber_controller.dart';
 import 'package:serfast0_1/controller/auth/signup_controller.dart';
+import 'package:serfast0_1/core/class/handelingdataview.dart';
 import 'package:serfast0_1/core/functions/alertexitapp.dart';
 import 'package:serfast0_1/core/functions/validator.dart';
 import 'package:serfast0_1/view/widget/auth/custom_Login_Button.dart';
@@ -15,7 +16,9 @@ class SignUp extends GetView<Signupctrlimp> {
     return WillPopScope(
         onWillPop: alertExitApp,
         child: GetBuilder<Signupctrlimp>(
-            builder: (signupCtrl) => Container(
+            builder: (signupCtrl) => HandlingDataView(
+                statusRequest: signupCtrl.statusRequest,
+                widget: Container(
                   color: const Color.fromRGBO(34, 44, 56, 1),
                   child: Scaffold(
                       backgroundColor: Colors.transparent,
@@ -137,6 +140,6 @@ class SignUp extends GetView<Signupctrlimp> {
                           ),
                         ),
                       )),
-                )));
+                ))));
   }
 }

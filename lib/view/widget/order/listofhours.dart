@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/order_controller.dart';
@@ -12,12 +10,20 @@ class ListOfHours extends StatelessWidget {
     return Container(
       height: 80,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) =>
-              buildContainerForHour(index, context),
-          separatorBuilder: (context, index) => const SizedBox(width: 10),
-          itemCount: controller.listHours.length - 1),
+      child: GetBuilder<OrderController>(builder: (controller) {
+        if (controller.selectedDayCard == 100) controller.selectedDayCard = 7;
+        // Why when == 100 ? why 100 cuz this package when you select anyDate
+        // this always be 100 so that set
+        return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) =>
+                buildContainerForHour(index, context),
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            itemCount: controller
+                    .listHoursMap[controller.selectedDayCard.toString()]!
+                    .length -
+                1);
+      }),
     );
   }
 
@@ -33,7 +39,7 @@ class ListOfHours extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               // backgroundBlendMode: BlendMode.exclusion,
               border: index == controller.selectedHourCard
-                  ? Border.all(width: 2, color: Colors.red)
+                  ? Border.all(width: 2, color: Colors.greenAccent)
                   : null,
               color: Theme.of(context).colorScheme.surface),
           child: Column(
@@ -49,11 +55,11 @@ class ListOfHours extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        "${controller.listHours[index + 1].hour} ${controller.listHours[index + 1].amOrPm}",
+                        "${controller.listHoursMap[controller.selectedDayCard.toString()]?[index + 1].hour} ${controller.listHoursMap[controller.selectedDayCard.toString()]?[index + 1].amOrPm}",
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(width: 4),
                     Text(
-                        "- ${controller.listHours[index].hour} ${controller.listHours[index].amOrPm}",
+                        "- ${controller.listHoursMap[controller.selectedDayCard.toString()]?[index].hour} ${controller.listHoursMap[controller.selectedDayCard.toString()]?[index].amOrPm}",
                         style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),

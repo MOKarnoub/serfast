@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:serfast0_1/controller/order_controller.dart';
 import 'package:serfast0_1/controller/providerinfo_controller.dart';
 import 'package:serfast0_1/core/class/handelingdataview.dart';
@@ -22,10 +21,10 @@ class OrderScreen extends StatelessWidget {
     final int providerID = Get.arguments[2];
     ///////////////sakjdhjksahdkjsahdjkhaskdjhsajkhkdhkd//////////////
     ///هي الصفحه منتاك اختا
-    final ProviderInfoController providerInfoController = Get.put(
-        ProviderInfoController(
-            catID: catID, serviceID: serviceID, providerID: providerID));
-    final orderController = Get.put(OrderController(providerId: providerID));
+    Get.put(ProviderInfoController(
+        catID: catID, serviceID: serviceID, providerID: providerID));
+    final orderController = Get.put(OrderController(
+        providerID: providerID, catID: catID, serviceID: serviceID));
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -101,7 +100,7 @@ class OrderScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           ListOfDate(
                             controller: orderController,
-                            providerInfoController: providerInfoController,
+                            // providerInfoController: providerInfoController,
                           ),
                           const Divider(height: 50),
                           Text(
@@ -256,5 +255,3 @@ class OrderScreen extends StatelessWidget {
 //     ),
 //   );
 // }
-
-
