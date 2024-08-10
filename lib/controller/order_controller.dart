@@ -19,22 +19,18 @@ class OrderController extends GetxController {
   bool showHisHour = false;
   int selectedDayCard = 0; // for Map of hour have just 7 elements [0 - 6]
   int selectedHourCard = 100; // random value out of range
-<<<<<<< HEAD
-  List<int> howMuchDayProviderHas = [0, 1, 4]; // this get it from dataBase
+// <<<<<<< HEAD
+  // List<int> howMuchDayProviderHas = [0, 1, 4]; // this get it from dataBase
   // 0  1  2  3  4  5  6   index of day
   // Sa Mn Tu Wn Th Fr St  Days by index
-  OrderController({required this.providerId});
-=======
+  OrderController(
+      {required this.providerID, required this.serviceID, required this.catID});
+// =======
   // providerInfoController.listOfProviders
   List<int> howMuchDayProviderHas = [0, 5, 0, 6]; // this get it from dataBase
   // 0  1  2  3  4  5  6   index of day
   // Sa Mn Tu Wn Th Fr St  Days by index
-  OrderController({
-    required this.catID,
-    required this.serviceID,
-    required this.providerID,
-  });
->>>>>>> 5bf6b2af7bdaf5d2532e019cbd5a9f28068c4e65
+
   MyAppServices myAppServices = Get.find();
   List<DateCard> listDateCard = [
     for (int index = 0; index <= 7; index++)
@@ -170,20 +166,6 @@ class OrderController extends GetxController {
       hour: HoursCard(amOrPm: 'Pm', hour: 11),
       userId: myAppServices.sharedPreferences.getInt("ID"),
       idProvider: providerID);
-}
-
-List<HoursCard> generateHoursCards() {
-  List<HoursCard> hoursCards = [];
-
-  for (int index = 8; index <= 11; index++) {
-    hoursCards.add(HoursCard(amOrPm: "Am", hour: index));
-  }
-  hoursCards.add(HoursCard(amOrPm: "Pm", hour: 12));
-  for (int index = 1; index <= 11; index++) {
-    hoursCards.add(HoursCard(amOrPm: "Pm", hour: index));
-  }
-
-  return hoursCards;
 }
 
 List<HoursCard> generateHoursCards() {
