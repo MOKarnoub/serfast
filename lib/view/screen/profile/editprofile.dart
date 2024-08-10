@@ -4,9 +4,12 @@ import 'package:serfast0_1/controller/changeuserinfo.dart';
 import 'package:serfast0_1/controller/edit_profile_controller.dart';
 import 'package:serfast0_1/controller/profile_controller.dart';
 import 'package:serfast0_1/core/constant/route_names.dart';
+import 'package:serfast0_1/core/ui_components/info_widget.dart';
 import 'package:serfast0_1/view/widget/editprofile/personalphoto.dart';
 import 'package:serfast0_1/view/widget/my_app_bar.dart';
 import 'package:serfast0_1/view/widget/profile_settings_icon.dart';
+
+import '../../../core/enums/device_type.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -28,44 +31,51 @@ class EditProfileScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.arrow_back_ios_new_rounded))),
         ), // appBar
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: [
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: PersonlaPhoto(controller: profileController)),
-              const SizedBox(height: 20),
-              Text(
-                "Account settings",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 20),
-              ProfileSettingsIcon(
-                icon: Icons.shield_outlined,
-                title: "Password and security",
-                onTap: () {
-                  Get.toNamed(AppRoute.changePassword);
-                },
-              ),
-              const SizedBox(height: 20),
-              ProfileSettingsIcon(
-                icon: Icons.contacts_outlined,
-                title: "Personal details",
-                onTap: () {
-                  Get.toNamed(AppRoute.personalInfo);
-                },
-              ),
-              const SizedBox(height: 20),
-              ProfileSettingsIcon(
-                icon: Icons.email_outlined,
-                title: "Contact info",
-                onTap: () {
-                  Get.toNamed(AppRoute.contactInfo);
-                },
-              ),
-            ],
+        body: InfoWidget(
+          builder: (context, deviceInfo) => Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: deviceInfo.deviceType != OurDeviceType.mobile
+                  ? deviceInfo.screenWidth * 0.15
+                  : 8.0,
+            ),
+            child: ListView(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: PersonlaPhoto(controller: profileController)),
+                const SizedBox(height: 20),
+                Text(
+                  "Account settings",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 20),
+                ProfileSettingsIcon(
+                  icon: Icons.shield_outlined,
+                  title: "Password and security",
+                  onTap: () {
+                    Get.toNamed(AppRoute.changePassword);
+                  },
+                ),
+                const SizedBox(height: 20),
+                ProfileSettingsIcon(
+                  icon: Icons.contacts_outlined,
+                  title: "Personal details",
+                  onTap: () {
+                    Get.toNamed(AppRoute.personalInfo);
+                  },
+                ),
+                const SizedBox(height: 20),
+                ProfileSettingsIcon(
+                  icon: Icons.email_outlined,
+                  title: "Contact info",
+                  onTap: () {
+                    Get.toNamed(AppRoute.contactInfo);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -140,54 +150,54 @@ Dialog _buildDialog3(BuildContext context, EditProfileController controller) {
   );
 }
 
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: TextField(
-                  //         decoration: InputDecoration(
-                  //           border: const OutlineInputBorder(),
-                  //           labelText: 'Name',
-                  //           labelStyle: Theme.of(context).textTheme.bodyMedium,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     const SizedBox(
-                  //       width: 20,
-                  //     ),
-                  //     Expanded(
-                  //       child: GestureDetector(
-                  //         onTap: () {
-                  //           showDialog(
-                  //             context: context,
-                  //             builder: (context) {
-                  //               return _buildDialog3(context, editProfileController);
-                  //             },
-                  //           );
-                  //         },
-                  //         child: AbsorbPointer(
-                  //           absorbing: true,
-                  //           child: GetBuilder<EditProfileController>(
-                  //             builder: (controller) => TextFormField(
-                  //               decoration: InputDecoration(
-                  //                 border: OutlineInputBorder(
-                  //                   borderRadius: BorderRadius.circular(3),
-                  //                   borderSide: const BorderSide(
-                  //                     style: BorderStyle.solid,
-                  //                     color: Colors.white,
-                  //                     width: 5,
-                  //                   ),
-                  //                 ),
-                  //                 hintText: editProfileController.myListOfLocationsAsProvider[
-                  //                     editProfileController.selectedLocation!],
-                  //                 suffixIcon: IconButton(
-                  //                   icon: const Icon(Icons.arrow_drop_down),
-                  //                   onPressed: () {},
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+// Row(
+//   children: [
+//     Expanded(
+//       child: TextField(
+//         decoration: InputDecoration(
+//           border: const OutlineInputBorder(),
+//           labelText: 'Name',
+//           labelStyle: Theme.of(context).textTheme.bodyMedium,
+//         ),
+//       ),
+//     ),
+//     const SizedBox(
+//       width: 20,
+//     ),
+//     Expanded(
+//       child: GestureDetector(
+//         onTap: () {
+//           showDialog(
+//             context: context,
+//             builder: (context) {
+//               return _buildDialog3(context, editProfileController);
+//             },
+//           );
+//         },
+//         child: AbsorbPointer(
+//           absorbing: true,
+//           child: GetBuilder<EditProfileController>(
+//             builder: (controller) => TextFormField(
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(3),
+//                   borderSide: const BorderSide(
+//                     style: BorderStyle.solid,
+//                     color: Colors.white,
+//                     width: 5,
+//                   ),
+//                 ),
+//                 hintText: editProfileController.myListOfLocationsAsProvider[
+//                     editProfileController.selectedLocation!],
+//                 suffixIcon: IconButton(
+//                   icon: const Icon(Icons.arrow_drop_down),
+//                   onPressed: () {},
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//   ],
+// ),

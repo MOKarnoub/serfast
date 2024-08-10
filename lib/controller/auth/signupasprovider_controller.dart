@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/core/class/statusrequest.dart';
@@ -5,6 +7,8 @@ import 'package:serfast0_1/core/constant/route_names.dart';
 import 'package:serfast0_1/core/functions/handlingdatacotrolling.dart';
 import 'package:serfast0_1/core/services/getxservices.dart';
 import 'package:serfast0_1/data/datasrc/remote/auth/signup_asprovider.dart';
+
+import '../../data/model/Service.dart';
 
 abstract class SignupAsProviderCtrl extends GetxController {
   signup();
@@ -26,6 +30,17 @@ class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
   gotoLoginwithnumber() {
     Get.offAllNamed(AppRoute.home);
   }
+
+  RxList<ServiceProvider> listOfService = [
+    ServiceProvider(category: ''.obs, service: ''.obs),
+  ].obs;
+
+  List<String> categories = ['Category A', 'Category B', 'Category C'];
+  Map<String, List<String>> service = {
+    'Category A': ['Item A', 'Item A1', 'Item A2'],
+    'Category B': ['Item B', 'Item B1', 'Item B2'],
+    'Category C': ['Item C', 'Item C1', 'Item C2'],
+  };
 
   @override
   signup() async {

@@ -23,8 +23,12 @@ class OrderScreen extends StatelessWidget {
     ///هي الصفحه منتاك اختا
     Get.put(ProviderInfoController(
         catID: catID, serviceID: serviceID, providerID: providerID));
+<<<<<<< HEAD
+    final orderController = Get.put(OrderController(providerId: providerID));
+=======
     final orderController = Get.put(OrderController(
         providerID: providerID, catID: catID, serviceID: serviceID));
+>>>>>>> 5bf6b2af7bdaf5d2532e019cbd5a9f28068c4e65
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -100,7 +104,10 @@ class OrderScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           ListOfDate(
                             controller: orderController,
+<<<<<<< HEAD
+=======
                             // providerInfoController: providerInfoController,
+>>>>>>> 5bf6b2af7bdaf5d2532e019cbd5a9f28068c4e65
                           ),
                           const Divider(height: 50),
                           Text(

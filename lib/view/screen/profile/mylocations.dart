@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/my_locations_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:serfast0_1/core/ui_components/info_widget.dart';
 import 'package:serfast0_1/view/widget/my_app_bar.dart';
+
+import '../../../core/enums/device_type.dart';
 
 class MyLocations extends StatelessWidget {
   const MyLocations({super.key});
+
   @override
   Widget build(BuildContext context) {
     final MyLocationsController locationsController =
@@ -16,32 +20,67 @@ class MyLocations extends StatelessWidget {
           appBar: const PreferredSize(
               preferredSize: Size.fromHeight(70),
               child: MyAppBar(title: "My Locations")),
-          body: Padding(
-              padding: const EdgeInsets.only(top: 14, left: 8.0, right: 8.0),
-              child: Stack(
-                children: [
-                  GetBuilder<MyLocationsController>(
-                    builder: (controller) => ListView.separated(
-                        itemBuilder: (context, index) {
-                          if (locationsController.myLocationsList.length ==
-                              index) {
-                            return const SizedBox(height: 20);
-                          } else {
-                            return LongPressDraggable<int>(
-                              data: index,
-                              childWhenDragging: Container(),
-                              feedback: SizedBox(
-                                width: MediaQuery.of(context).size.width - 50,
-                                height: 50,
-                                child: Card(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
+          body: InfoWidget(
+            builder: (context, deviceInfo) => Padding(
+                padding: EdgeInsets.only(
+                  top: 14,
+                  right: deviceInfo.deviceType != OurDeviceType.mobile
+                      ? deviceInfo.screenWidth * 0.15
+                      : 8.0,
+                  left: deviceInfo.deviceType != OurDeviceType.mobile
+                      ? deviceInfo.screenWidth * 0.15
+                      : 8.0,
+                ),
+                child: Stack(
+                  children: [
+                    GetBuilder<MyLocationsController>(
+                      builder: (controller) => ListView.separated(
+                          itemBuilder: (context, index) {
+                            if (locationsController.myLocationsList.length ==
+                                index) {
+                              return const SizedBox(height: 20);
+                            } else {
+                              return LongPressDraggable<int>(
+                                data: index,
+                                childWhenDragging: Container(),
+                                feedback: SizedBox(
+                                  width: MediaQuery.of(context).size.width - 50,
+                                  height: 50,
+                                  child: Card(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface),
+                                      child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: ListTile(
+                                          title: Text(
+                                            locationsController
+                                                .myLocationsList[index],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width - 50,
+                                  height: 50,
+                                  child: Card(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface),
                                       child: ListTile(
                                         title: Text(
                                           locationsController
@@ -54,59 +93,39 @@ class MyLocations extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  // ),
                                 ),
+                                onDragStarted: () {
+                                  locationsController.allowTrash.value = true;
+                                },
+                                onDragEnd: (details) {
+                                  locationsController.allowTrash.value = false;
+                                },
+                                onDraggableCanceled: (velocity, offset) {
+                                  locationsController.allowTrash.value = false;
+                                },
+                              );
+                            }
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                                height: 10,
                               ),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width - 50,
-                                height: 50,
-                                child: Card(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface),
-                                    child: ListTile(
-                                      title: Text(
-                                        locationsController
-                                            .myLocationsList[index],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // ),
-                              ),
-                              onDragStarted: () {
-                                locationsController.allowTrash.value = true;
-                              },
-                              onDragEnd: (details) {
-                                locationsController.allowTrash.value = false;
-                              },
-                              onDraggableCanceled: (velocity, offset) {
-                                locationsController.allowTrash.value = false;
-                              },
-                            );
-                          }
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                              height: 10,
-                            ),
-                        itemCount: locationsController.myLocationsList.length),
-                  ),
-                  TrashFlow(controller: locationsController),
-                ],
-              )),
+                          itemCount:
+                              locationsController.myLocationsList.length),
+                    ),
+                    TrashFlow(controller: locationsController),
+                  ],
+                )),
+          ),
         ));
   }
 }
 
 class TrashFlow extends StatelessWidget {
   const TrashFlow({super.key, required this.controller});
+
   final MyLocationsController controller;
+
   @override
   Widget build(BuildContext context) {
     return Positioned(

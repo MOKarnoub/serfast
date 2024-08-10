@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/change_my_services_controller.dart';
 import 'package:serfast0_1/controller/edit_profile_controller.dart';
+import 'package:serfast0_1/core/ui_components/info_widget.dart';
 import 'package:serfast0_1/view/widget/my_app_bar.dart';
+
+import '../../../core/enums/device_type.dart';
 
 class ChangeMyServices extends StatelessWidget {
   const ChangeMyServices({super.key});
@@ -23,98 +26,110 @@ class ChangeMyServices extends StatelessWidget {
                   },
                   icon: const Icon(Icons.add))),
         ),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          height: MediaQuery.of(context).size.height - 70,
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              if (index == 1) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][0],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.white, fontSize: 20),
-                        ),
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][1],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontSize: 15),
-                        ),
-                      ]),
-                );
-              } else if (index ==
-                  changeMyServicesController.listOfMyServices.length - 1) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][0],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.white, fontSize: 20),
-                        ),
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][1],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontSize: 15),
-                        ),
-                      ]),
-                );
-              } else {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][0],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.white, fontSize: 20),
-                        ),
-                        Text(
-                          changeMyServicesController.listOfMyServices[index][1],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontSize: 15),
-                        ),
-                      ]),
-                );
-              }
-            },
-            itemCount: changeMyServicesController.listOfMyServices.length,
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 15,
+        body: InfoWidget(
+          builder: (context, deviceInfo) => Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: deviceInfo.deviceType != OurDeviceType.mobile
+                  ? deviceInfo.screenWidth * 0.15
+                  : 8.0,
+            ),
+            height: MediaQuery.of(context).size.height - 70,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                if (index == 1) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [0],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.white, fontSize: 20),
+                          ),
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [1],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 15),
+                          ),
+                        ]),
+                  );
+                } else if (index ==
+                    changeMyServicesController.listOfMyServices.length - 1) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [0],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.white, fontSize: 20),
+                          ),
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [1],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 15),
+                          ),
+                        ]),
+                  );
+                } else {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [0],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.white, fontSize: 20),
+                          ),
+                          Text(
+                            changeMyServicesController.listOfMyServices[index]
+                                [1],
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 15),
+                          ),
+                        ]),
+                  );
+                }
+              },
+              itemCount: changeMyServicesController.listOfMyServices.length,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 15,
+              ),
             ),
           ),
         ),
