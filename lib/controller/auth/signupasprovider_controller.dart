@@ -10,10 +10,7 @@ import 'package:serfast0_1/data/datasrc/remote/catnamesdata.dart';
 
 import '../../data/model/Service.dart';
 
-abstract class SignupAsProviderCtrl extends GetxController {
-  signup();
-  gotoLoginwithnumber();
-}
+abstract class SignupAsProviderCtrl extends GetxController {}
 
 class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
   GlobalKey<FormState> formstatekey = GlobalKey<FormState>();
@@ -22,7 +19,6 @@ class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
   CategoriesServiceNames categoriesServiceNames =
       CategoriesServiceNames(Get.find());
   SignupAsProviderData signupAsProviderData = SignupAsProviderData(Get.find());
-  late TextEditingController location;
   late TextEditingController about;
   // late List<String> serviceName;
   late String serviceName1;
@@ -33,11 +29,6 @@ class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
   late String categoryName3;
   late StatusRequest statusRequest;
   List<String> categoriesList = [];
-
-  @override
-  gotoLoginwithnumber() {
-    Get.offAllNamed(AppRoute.home);
-  }
 
   RxList<ServiceProvider> listOfService = [
     ServiceProvider(category: ''.obs, service: ''.obs),
@@ -89,26 +80,25 @@ class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
     update();
   }
 
-  @override
-  signup() async {
+  void gotoParttwo() {
     switch (listOfService.length) {
       case 0:
         break;
       case 1:
         serviceName1 = listOfService[0].service.toString();
-        serviceName2 = '';
-        serviceName3 = '';
+        serviceName2 = 'null';
+        serviceName3 = 'null';
         categoryName1 = listOfService[0].category.toString();
-        categoryName2 = '';
-        categoryName3 = '';
+        categoryName2 = 'null';
+        categoryName3 = 'null';
         break;
       case 2:
         serviceName1 = listOfService[0].service.toString();
         serviceName2 = listOfService[1].service.toString();
-        serviceName3 = '';
+        serviceName3 = 'null';
         categoryName1 = listOfService[0].category.toString();
         categoryName2 = listOfService[1].category.toString();
-        categoryName3 = '';
+        categoryName3 = 'null';
         break;
       case 3:
         serviceName1 = listOfService[0].service.toString();
@@ -123,36 +113,31 @@ class SignupAsProviderCtrlImp extends SignupAsProviderCtrl {
     }
     print(serviceName1 + " " + serviceName2 + " " + serviceName3);
     print(categoryName1 + " " + categoryName2 + " " + categoryName3);
-
+    print(about.text);
     if (formstatekey.currentState!.validate()) {
-      statusRequest = StatusRequest.loading;
-      var response = await signupAsProviderData.postData(location.text,
-          myAppServices.sharedPreferences.getInt("ID").toString());
-      print(response);
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response["Status"] == "Success") {
-          Get.offNamed(AppRoute.successSignup);
-        } else {
-          statusRequest == StatusRequest.failure;
-        }
-      }
-      update();
+      Get.toNamed(AppRoute.signUpAsProviderParttwo, arguments: {
+        "serviceName1": serviceName1,
+        "serviceName2": serviceName2,
+        "serviceName3": serviceName3,
+        "categoryName1": categoryName1,
+        "categoryName2": categoryName2,
+        "categoryName3": categoryName3,
+        "about": about.text,
+      });
     }
+    // update();
   }
 
   @override
   void onInit() {
     getData();
     getData1();
-    location = TextEditingController();
     about = TextEditingController();
     super.onInit();
   }
 
   @override
   void dispose() {
-    location.dispose();
     about.dispose();
     super.dispose();
   }

@@ -24,6 +24,7 @@ class AppRoute {
   static const String balanceScreen = "/BalanceScreen";
   static const String settingScreen = "/SettingScreen";
   static const String signUpAsProvider = "/SignUpAsProvider";
+  static const String signUpAsProviderParttwo = "/SignUpAsProviderPartTwo";
   static const String questionsScreen = "/QuestionsScreen";
   static const String aboutUsScreen = "/AboutUsScreen";
   static const String profileScreen = "/ProfileScreen";

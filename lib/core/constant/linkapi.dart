@@ -37,6 +37,8 @@ class AppLink {
       "$linkservername/update/updatephonenumber.php";
   static const String linkofproviderworkdays =
       "$linkservername/provider_work_days.php";
+  static const String linkofproviderworkhours =
+      "$linkservername/provider_work_hours.php";
   static const String linkoftest = "$linkservername/test1.php";
   static const String linkofcatnames = "$linkservername/categoriesNames.php";
   static const String linkofaddlocation =

@@ -122,33 +122,22 @@ class SignUpAsProvider extends GetView<SignupAsProviderCtrlImp> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 30),
-                          CustomSignupTf(
-                            label: "Location",
-                            hint: "Enter Your Location",
-                            preFixIcon: Icons.location_on_outlined,
-                            textInputType: TextInputType.name,
-                            mycontroller: controller.location,
-                            myvalidator: (value) {
-                              return validInput(value!, 30, 4, "Location");
-                            },
-                          ),
                           const SizedBox(height: 40),
                           CustomSignupTf(
                             label: "About",
                             hint: "Enter Some Info About Yourself",
                             preFixIcon: Icons.info_outline,
                             textInputType: TextInputType.text,
-                            mycontroller: controller.location,
+                            mycontroller: controller.about,
                             myvalidator: (value) {
                               return validInput(value!, 100, 10, "This Field");
                             },
                           ),
                           const SizedBox(height: 30),
                           CustomLoginButton(
-                            ButtonText: "Sign Up",
+                            ButtonText: "Next",
                             onPress: () {
-                              controller.signup();
+                              controller.gotoParttwo();
                             },
                           ),
                           const SizedBox(
@@ -196,6 +185,7 @@ class DropdownWidget1 extends StatelessWidget {
             controller.listOfService[index].service.value =
                 ''; // Reset the second dropdown
           },
+          dropdownColor: Colors.transparent,
           hint: const Text('Select Category'),
         ),
       );
@@ -233,6 +223,7 @@ class DropdownWidget2 extends StatelessWidget {
           onChanged: (String? newValue) {
             controller.listOfService[index].service.value = newValue!;
           },
+          dropdownColor: Colors.transparent,
           hint: const Text('Select'),
         ),
       );

@@ -8,77 +8,78 @@ class ListOfDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 93,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            if (index == controller.listDateCard.length - 1) {
-              return GetBuilder<OrderController>(
-                builder: (controller) => InkWell(
-                  onTap: () async {
-                    if (!controller.showHisDate) {
-                      DateTime? hisDate = await showDatePicker(
-                        context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(const Duration(days: 30)),
-                        builder: (context, child) {
-                          return Theme(
-                              data: Theme.of(context).copyWith(
-                                  colorScheme: const ColorScheme.dark(
-                                      primary: Colors.orangeAccent)),
-                              child: child!);
-                        },
-                      );
-                      controller.updateSelectedDayCard(
-                          index); // update Value for order and border
-                      controller.updateHisDate(hisDate!);
-                    } else {
+        height: 93,
+        child: GetBuilder<OrderController>(
+          builder: (controller) => ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                if (index == controller.listDateCard.length - 1) {
+                  return InkWell(
+                    onTap: () async {
+                      if (!controller.showHisDate) {
+                        DateTime? hisDate = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 30)),
+                          builder: (context, child) {
+                            return Theme(
+                                data: Theme.of(context).copyWith(
+                                    colorScheme: const ColorScheme.dark(
+                                        primary: Colors.orangeAccent)),
+                                child: child!);
+                          },
+                        );
+                        controller.updateSelectedDayCard(
+                            index); // update Value for order and border
+                        controller.updateHisDate(hisDate!);
+                      } else {
+                        controller.updateSelectedDayCard(index);
+                      }
+                    },
+                    child: controller.showHisDate
+                        ? buildDateCardContainer(
+                            controller: controller,
+                            context: context,
+                            index: index,
+                            weekDay: controller.hisDate!.weekday,
+                            month: controller.hisDate!.month,
+                            day: controller.hisDate!.day)
+                        : buildIconAdd(context),
+                  );
+                } else {
+                  return InkWell(
+                    onTap: () {
                       controller.updateSelectedDayCard(index);
-                    }
-                  },
-                  child: controller.showHisDate
-                      ? buildDateCardContainer(
-                          controller: controller,
-                          context: context,
-                          index: index,
-                          weekDay: controller.hisDate!.weekday,
-                          month: controller.hisDate!.month,
-                          day: controller.hisDate!.day)
-                      : buildIconAdd(context),
-                ),
-              );
-            } else {
-              return InkWell(
-                onTap: () {
-                  controller.updateSelectedDayCard(index);
-                },
-                child: GetBuilder<OrderController>(
-                  builder: (controller) {
-                    if (controller.howMuchDayProviderHas.contains(index)) {
-                      return buildDateCardContainer(
-                          controller: controller,
-                          index: index,
-                          context: context,
-                          weekDay: controller.listDateCard[index].weekDayNumber,
-                          month: controller.listDateCard[index].monthNumber,
-                          day: controller.listDateCard[index].dayNumber);
-                    } else {
-                      return Container();
-                    }
-                  },
-                ),
-              );
-            }
-          },
-          separatorBuilder: (context, index) {
-            if (controller.howMuchDayProviderHas.contains(index)) {
-              return const SizedBox(width: 10);
-            } else {
-              return Container();
-            }
-          },
-          itemCount: controller.listDateCard.length),
-    );
+                    },
+                    child: GetBuilder<OrderController>(
+                      builder: (controller) {
+                        if (controller.howMuchDayProviderHas.contains(index)) {
+                          return buildDateCardContainer(
+                              controller: controller,
+                              index: index,
+                              context: context,
+                              weekDay:
+                                  controller.listDateCard[index].weekDayNumber,
+                              month: controller.listDateCard[index].monthNumber,
+                              day: controller.listDateCard[index].dayNumber);
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
+                  );
+                }
+              },
+              separatorBuilder: (context, index) {
+                if (controller.howMuchDayProviderHas.contains(index)) {
+                  return const SizedBox(width: 10);
+                } else {
+                  return Container();
+                }
+              },
+              itemCount: controller.listDateCard.length),
+        ));
   }
 }
 

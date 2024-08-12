@@ -21,6 +21,7 @@ import 'package:serfast0_1/view/screen/drawerscreens/balance.dart';
 import 'package:serfast0_1/view/screen/drawerscreens/profile.dart';
 import 'package:serfast0_1/view/screen/drawerscreens/questions.dart';
 import 'package:serfast0_1/view/screen/drawerscreens/setting.dart';
+import 'package:serfast0_1/view/screen/drawerscreens/signup_adproviderparttwo.dart';
 import 'package:serfast0_1/view/screen/drawerscreens/signup_asprovider.dart';
 import 'package:serfast0_1/view/screen/profile/contactinfo.dart';
 import 'package:serfast0_1/view/screen/profile/editprofil/editemail.dart';
@@ -72,6 +73,9 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoute.settingScreen, page: () => const SettingScreen()),
   GetPage(
       name: AppRoute.signUpAsProvider, page: () => const SignUpAsProvider()),
+  GetPage(
+      name: AppRoute.signUpAsProviderParttwo,
+      page: () => const SignUpAsProviderPartTwo()),
   GetPage(name: AppRoute.questionsScreen, page: () => const QuestionsScreen()),
   GetPage(name: AppRoute.aboutUsScreen, page: () => const AboutUsScreen()),
   GetPage(name: AppRoute.profileScreen, page: () => const ProfileScreen()),

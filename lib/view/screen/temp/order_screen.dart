@@ -102,9 +102,9 @@ class OrderScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           ListOfDate(
                             controller: orderController,
-
                             // providerInfoController: providerInfoController,
                           ),
+                          const SizedBox(height: 10),
                           const Divider(height: 50),
                           Text(
                             "في اي ساعة؟",

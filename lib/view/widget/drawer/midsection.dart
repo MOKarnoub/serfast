@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/core/constant/route_names.dart';
+import 'package:serfast0_1/core/services/getxservices.dart';
 import 'package:serfast0_1/view/widget/drawer/tapindrawer.dart';
 
 class MidSection extends StatelessWidget {
@@ -8,6 +9,7 @@ class MidSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyAppServices myAppServices = Get.find();
     return Padding(
         padding: const EdgeInsets.all(24),
         child: SingleChildScrollView(
@@ -35,13 +37,15 @@ class MidSection extends StatelessWidget {
                   Get.toNamed(AppRoute.settingScreen);
                 },
               ),
-              TapInDrawer(
-                title: "التسجيل كمقدم خدمة",
-                icon: Icons.person_outline,
-                onTap: () {
-                  Get.toNamed(AppRoute.signUpAsProvider);
-                },
-              ),
+              myAppServices.sharedPreferences.getString('prov_id') == "null"
+                  ? TapInDrawer(
+                      title: "التسجيل كمقدم خدمة",
+                      icon: Icons.person_outline,
+                      onTap: () {
+                        Get.offAllNamed(AppRoute.signUpAsProvider);
+                      },
+                    )
+                  : Container(),
               const Divider(
                 height: 1,
                 thickness: 0.5,
