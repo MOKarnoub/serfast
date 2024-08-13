@@ -6,13 +6,8 @@ class SignupAsProviderData {
 
   SignupAsProviderData(this.crud);
 
-  postData(String userfname, String userlname, String services,
-      String phoneNumber, String location, String userID) async {
+  postData(String location, String userID) async {
     var respons = await crud.postData(AppLink.linksginupasprovider, {
-      "FirstName": userfname,
-      "LastName": userlname,
-      "Services": services,
-      "Number": phoneNumber,
       "Locations": location,
       "ID": userID,
     });

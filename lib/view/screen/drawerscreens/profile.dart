@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.privacy_tip_outlined,
                                 title: "قائمة مواقعي",
                                 onTap: () {
-                                  Get.toNamed(AppRoute.myLocations);
+                                  Get.toNamed(AppRoute.viewlocation);
                                 },
                               ),
                               const SizedBox(height: 10),

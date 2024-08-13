@@ -5,7 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:serfast0_1/core/ui_components/info_widget.dart';
 import 'package:serfast0_1/view/widget/my_app_bar.dart';
 
-import '../../../core/enums/device_type.dart';
+import '../../../../core/enums/device_type.dart';
 
 class MyLocations extends StatelessWidget {
   const MyLocations({super.key});

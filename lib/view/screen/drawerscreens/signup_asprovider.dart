@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/controller/auth/signupasprovider_controller.dart';
+import 'package:serfast0_1/core/class/handelingdataview.dart';
 import 'package:serfast0_1/core/functions/validator.dart';
-import 'package:serfast0_1/data/model/Service.dart';
 import 'package:serfast0_1/view/widget/auth/custom_Login_Button.dart';
 import 'package:serfast0_1/view/widget/auth/custom_signup_tf.dart';
 
@@ -13,7 +13,7 @@ class SignUpAsProvider extends GetView<SignupAsProviderCtrlImp> {
   const SignUpAsProvider({super.key});
   @override
   Widget build(BuildContext context) {
-    SignupAsProviderCtrlImp signupCtrl = Get.put(SignupAsProviderCtrlImp());
+    Get.put(SignupAsProviderCtrlImp());
     return Container(
       color: const Color.fromRGBO(34, 44, 56, 1),
       child: Scaffold(
@@ -25,94 +25,140 @@ class SignUpAsProvider extends GetView<SignupAsProviderCtrlImp> {
           ),
           body: InfoWidget(
             builder: (context, deviceInfo) => Container(
-              width: double.infinity,
-              height: 1000,
-              padding: EdgeInsets.symmetric(
-                horizontal: deviceInfo.deviceType != OurDeviceType.mobile
-                    ? deviceInfo.screenWidth * 0.15
-                    : 8.0,
-              ),
-              child: Form(
-                key: signupCtrl.formstatekey,
-                child: ListView(
-                  children: [
-                    Image.asset(
-                      "assets/images/logoserfast.png",
-                      height: 200,
-                    ),
-                    const SizedBox(height: 40),
-                    CustomSignupTf(
-                      label: "Location",
-                      hint: "Enter Your Location",
-                      preFixIcon: Icons.location_on_outlined,
-                      textInputType: TextInputType.name,
-                      mycontroller: signupCtrl.location,
-                      myvalidator: (value) {
-                        return validInput(value!, 30, 4, "Location");
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Services",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              signupCtrl.listOfService.add(ServiceProvider(
-                                  category: ''.obs, service: ''.obs));
-                            },
-                            icon: const Icon(Icons.add))
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Obx(
-                      () => Column(
+                width: double.infinity,
+                height: 1000,
+                padding: EdgeInsets.symmetric(
+                  horizontal: deviceInfo.deviceType != OurDeviceType.mobile
+                      ? deviceInfo.screenWidth * 0.15
+                      : 8.0,
+                ),
+                child: GetBuilder<SignupAsProviderCtrlImp>(
+                  builder: (controller) => HandlingDataView(
+                    statusRequest: controller.statusRequest,
+                    widget: Form(
+                      key: controller.formstatekey,
+                      child: ListView(
                         children: [
-                          for (int index = 0;
-                              index < signupCtrl.listOfService.length;
-                              index++) ...[
-                            Row(
+                          Image.asset(
+                            "assets/images/logoserfast.png",
+                            height: 200,
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              controller.listOfService.length >= 3
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Services",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                        const SizedBox(
+                                          height: 40,
+                                          width: 380,
+                                          child: Text(
+                                            "You Can Not Add More Than Three Services With The Same Account",
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 16),
+                                            softWrap: true,
+                                            maxLines: 3,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : Text(
+                                      "Services",
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                              controller.listOfService.length < 3
+                                  ? IconButton(
+                                      onPressed: () {
+                                        controller.addList();
+                                      },
+                                      icon: const Icon(Icons.add))
+                                  : const Text("")
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Obx(
+                            () => Column(
                               children: [
-                                Expanded(child: DropdownWidget1(index: index)),
-                                const SizedBox(
-                                  width: 25,
-                                ),
-                                Expanded(child: DropdownWidget2(index: index)),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      signupCtrl.listOfService.removeAt(index);
-                                    },
-                                    icon: const Icon(
-                                      Icons.restore_from_trash,
-                                      color: Colors.red,
-                                    ))
+                                for (int index = 0;
+                                    index < controller.listOfService.length;
+                                    index++) ...[
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: DropdownWidget1(index: index)),
+                                      const SizedBox(
+                                        width: 25,
+                                      ),
+                                      Expanded(
+                                          child: DropdownWidget2(index: index)),
+                                      const SizedBox(
+                                        width: 15,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            controller.removeList(index);
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove_circle_outline,
+                                            color: Colors.red,
+                                          ))
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
                               ],
                             ),
-                            const SizedBox(height: 20),
-                          ],
+                          ),
+                          const SizedBox(height: 30),
+                          CustomSignupTf(
+                            label: "Location",
+                            hint: "Enter Your Location",
+                            preFixIcon: Icons.location_on_outlined,
+                            textInputType: TextInputType.name,
+                            mycontroller: controller.location,
+                            myvalidator: (value) {
+                              return validInput(value!, 30, 4, "Location");
+                            },
+                          ),
+                          const SizedBox(height: 40),
+                          CustomSignupTf(
+                            label: "About",
+                            hint: "Enter Some Info About Yourself",
+                            preFixIcon: Icons.info_outline,
+                            textInputType: TextInputType.text,
+                            mycontroller: controller.location,
+                            myvalidator: (value) {
+                              return validInput(value!, 100, 10, "This Field");
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          CustomLoginButton(
+                            ButtonText: "Sign Up",
+                            onPress: () {
+                              controller.signup();
+                            },
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          )
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
-                    CustomLoginButton(
-                      ButtonText: "Sign Up",
-                      onPress: () {
-                        signupCtrl.signup();
-                      },
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    )
-                  ],
-                ),
-              ),
-            ),
+                  ),
+                )),
           )),
     );
   }
@@ -139,7 +185,7 @@ class DropdownWidget1 extends StatelessWidget {
               ? null
               : controller.listOfService[index].category.value,
           // : controller.selectedCategory.value,
-          items: controller.categories.map((String category) {
+          items: controller.categoriesList.map((String category) {
             return DropdownMenuItem<String>(
               value: category,
               child: Text(category),

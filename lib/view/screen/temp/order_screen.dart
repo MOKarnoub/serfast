@@ -94,6 +94,7 @@ class OrderScreen extends StatelessWidget {
                                             .textTheme
                                             .bodySmall,
                                       )),
+                                  const SizedBox(height: 10),
                                 ],
                               ],
                             ),

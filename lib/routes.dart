@@ -26,8 +26,11 @@ import 'package:serfast0_1/view/screen/profile/contactinfo.dart';
 import 'package:serfast0_1/view/screen/profile/editprofil/editemail.dart';
 import 'package:serfast0_1/view/screen/profile/editprofil/editphonenumber.dart';
 import 'package:serfast0_1/view/screen/profile/editprofil/editusername.dart';
+import 'package:serfast0_1/view/screen/profile/location/addlocation.dart';
+import 'package:serfast0_1/view/screen/profile/location/addlocationparttwo.dart';
+import 'package:serfast0_1/view/screen/profile/location/viewlocation.dart';
 import 'package:serfast0_1/view/screen/profile/pesrsonalinfo.dart';
-import 'package:serfast0_1/view/screen/profile/mylocations.dart';
+import 'package:serfast0_1/view/screen/profile/location/mylocations.dart';
 import 'package:serfast0_1/view/screen/profile/change_my_services.dart';
 import 'package:serfast0_1/view/screen/profile/editprofil/changepassword.dart';
 import 'package:serfast0_1/view/screen/profile/editprofile.dart';
@@ -85,6 +88,11 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoute.editUserName, page: () => const EditUserName()),
   GetPage(name: AppRoute.contactInfo, page: () => const ContactInfo()),
   GetPage(name: AppRoute.editUserEmail, page: () => const EditUserEmail()),
+  GetPage(name: AppRoute.viewlocation, page: () => const ViewLocation()),
+  GetPage(name: AppRoute.addlocation, page: () => const AddLocation()),
+  GetPage(
+      name: AppRoute.addlocationparttwo,
+      page: () => const AddLocationPartTwo()),
   GetPage(
       name: AppRoute.editUserPhoneNumber,
       page: () => const EditUserPhoneNumber()),

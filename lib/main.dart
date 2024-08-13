@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serfast0_1/bindings/initialBinding.dart';
+import 'package:serfast0_1/core/localization/changelocal.dart';
 import 'package:serfast0_1/core/theme/theme-data/dark_theme.dart';
 import 'package:serfast0_1/core/theme/theme-data/light_theme.dart';
 import 'package:serfast0_1/routes.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    // LocalController localController = Get.put(LocalController());
+    LocalController localController = Get.put(LocalController());
     return GetMaterialApp(
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       darkTheme: getDarkThemeData(),
       translations: MyTranslation(),
       initialBinding: InitialBindings(),
-      // locale: localController.language,
+      locale: localController.language,
       // home: Test(),
       // initialRoute: AppRoute.onboarding,
       // routes: routes,

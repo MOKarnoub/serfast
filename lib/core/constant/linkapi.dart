@@ -1,13 +1,13 @@
 class AppLink {
-  // // for emulator on localhost
-  // static const String linkservername = "http://10.0.2.2:8080/mo";
+  // for emulator on localhost
+  static const String linkservername = "http://10.0.2.2:8080/mo";
   // for moblie on localhost
-  //static const String linkservername = "http://192.168.1.111:8080/mo";
+  // static const String linkservername = "http://192.168.1.111:8080/mo";
   // static const String linkservername =
   //     "https://serfast.000webhostapp.com/serfast_API";
 
-  static const String linkservername =
-      "https://files.000webhost.com/serfast_API";
+  // static const String linkservername =
+  //     "https://files.000webhost.com/serfast_API";
 
   // static const String linkservername = "http://192.168.1.102:8000/mo";
 
@@ -38,4 +38,13 @@ class AppLink {
   static const String linkofproviderworkdays =
       "$linkservername/provider_work_days.php";
   static const String linkoftest = "$linkservername/test1.php";
+  static const String linkofcatnames = "$linkservername/categoriesNames.php";
+  static const String linkofaddlocation =
+      "$linkservername/location/location_insert.php";
+  static const String linkofshowlocation =
+      "$linkservername/location/show_locations.php";
+  static const String linkofdeletelocation =
+      "$linkservername/location/delete_location.php";
+  static const String linkofcategorieserviceames =
+      "$linkservername/categoriesServiceNames.php";
 }

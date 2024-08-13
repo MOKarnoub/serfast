@@ -27,7 +27,7 @@ class OrderController extends GetxController {
       {required this.providerID, required this.serviceID, required this.catID});
 // =======
   // providerInfoController.listOfProviders
-  List<int> howMuchDayProviderHas = [0, 5, 0, 6]; // this get it from dataBase
+  List<int> howMuchDayProviderHas = [0]; // this get it from dataBase
   // 0  1  2  3  4  5  6   index of day
   // Sa Mn Tu Wn Th Fr St  Days by index
 
@@ -48,6 +48,12 @@ class OrderController extends GetxController {
     if (StatusRequest.success == statusRequest) {
       if (response["Status"] == "Success") {
         listofproviderworkdays.addAll(response['listOfProviderWorkDays']);
+        // for (var element in response['listOfProviderWorkDays']) {
+        //   if (element is int) {
+        //     howMuchDayProviderHas.add(element);
+        //     print(howMuchDayProviderHas);
+        //   }
+        // }
       } else {
         statusRequest == StatusRequest.failure;
       }
