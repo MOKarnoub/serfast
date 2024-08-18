@@ -16,7 +16,7 @@ class SuccessSignup extends StatelessWidget {
           appBar: AppBar(
             toolbarHeight: 70,
             backgroundColor: Colors.transparent,
-            title: const Text("تلحس طيزي"),
+            title: const Text("Welcome"),
             centerTitle: true,
           ),
           body: Container(

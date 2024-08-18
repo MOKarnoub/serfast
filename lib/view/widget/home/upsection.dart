@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
 class UpSection extends StatelessWidget {
   const UpSection({
     super.key,
@@ -12,8 +13,21 @@ class UpSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(top: 0,child: Opacity(opacity: 0.75,child: Lottie.asset("assets/animations/curve.json",fit: BoxFit.cover,height: sizeOfCurve,width: 400),),),
-        Positioned(top: 3,child: Opacity(opacity: 0.9,child: Lottie.asset("assets/animations/curve.json",fit: BoxFit.cover,height: sizeOfCurve,width: 400),)),
+        Positioned(
+          top: 0,
+          child: Opacity(
+            opacity: 0.75,
+            child: Lottie.asset("assets/animations/curve.json",
+                fit: BoxFit.cover, height: sizeOfCurve, width: 400),
+          ),
+        ),
+        Positioned(
+            top: 3,
+            child: Opacity(
+              opacity: 0.9,
+              child: Lottie.asset("assets/animations/curve.json",
+                  fit: BoxFit.cover, height: sizeOfCurve, width: 400),
+            )),
         ClipPath(
           clipper: MyPath2(),
           child: Container(
@@ -68,8 +82,7 @@ class UpSection extends StatelessWidget {
                       border: Border.all(color: Colors.cyan),
                       color: Colors.black.withOpacity(0.5),
                     ),
-                    child: Center(
-                        child: buildTweenAnimationBuilder(2453)),
+                    child: Center(child: buildTweenAnimationBuilder(2453)),
                   ),
                   const SizedBox(height: 10),
                   const FittedBox(
@@ -96,8 +109,7 @@ class UpSection extends StatelessWidget {
                       border: Border.all(color: Colors.cyan),
                       color: Colors.black.withOpacity(0.5),
                     ),
-                    child: Center(
-                        child: buildTweenAnimationBuilder(1000)),
+                    child: Center(child: buildTweenAnimationBuilder(1000)),
                   ),
                   const SizedBox(height: 10),
                   const FittedBox(
@@ -132,15 +144,16 @@ class UpSection extends StatelessWidget {
       ],
     );
   }
-    TweenAnimationBuilder<int> buildTweenAnimationBuilder(int end) {
+
+  TweenAnimationBuilder<int> buildTweenAnimationBuilder(int end) {
     return TweenAnimationBuilder(
       tween: IntTween(begin: 0, end: end),
       duration: const Duration(seconds: 4),
       builder: (context, value, child) {
-        return Text(
-            value.toString(),
+        return Text(value.toString(),
             style: const TextStyle(color: Colors.cyan));
-      },);
+      },
+    );
   }
 }
 

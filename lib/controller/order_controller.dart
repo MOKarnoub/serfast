@@ -2,21 +2,27 @@ import 'package:get/get.dart';
 import 'package:serfast0_1/core/class/statusrequest.dart';
 import 'package:serfast0_1/core/functions/handlingdatacotrolling.dart';
 import 'package:serfast0_1/core/services/getxservices.dart';
+import 'package:serfast0_1/data/datasrc/remote/locationdata.dart';
+import 'package:serfast0_1/data/datasrc/remote/orderdata.dart';
 import 'package:serfast0_1/data/datasrc/remote/providerworkdaysdata.dart';
 import 'package:serfast0_1/data/datasrc/remote/providerworkhoursdata.dart';
 import 'package:serfast0_1/data/model/date_card.dart';
 import 'package:serfast0_1/data/model/hours_card.dart';
+import 'package:serfast0_1/data/model/locationviewmodel.dart';
 import 'package:serfast0_1/data/model/order.dart';
+import 'package:serfast0_1/view/screen/thx_for_order.dart';
 
 class OrderController extends GetxController {
   late StatusRequest statusRequest;
   ProviderWorkDaysData providerWorkDaysData = ProviderWorkDaysData(Get.find());
+  AddLocationData addLocationData = AddLocationData(Get.find());
+  OrderData orderData = OrderData(Get.find());
   ProviderWorkHoursData providerWorkHoursData =
       ProviderWorkHoursData(Get.find());
   late List listofproviderworkdays = [];
+  List<LocationViewModel> locations = [];
   late Map<String, List<int>> listHoursMap = {};
   late Map<String, dynamic> responseData = {};
-
   final int catID;
   final int serviceID;
   final int providerID;
@@ -25,18 +31,10 @@ class OrderController extends GetxController {
   bool showHisHour = false;
   int selectedDayCard = 0; // for Map of hour have just 7 elements [0 - 6]
   int selectedHourCard = 100; // random value out of range
-// <<<<<<< HEAD
-  // List<int> howMuchDayProviderHas = [0, 1, 4]; // this get it from dataBase
-  // 0  1  2  3  4  5  6   index of day
-  // Sa Mn Tu Wn Th Fr St  Days by index
+
   OrderController(
       {required this.providerID, required this.serviceID, required this.catID});
-// =======
-  // providerInfoController.listOfProviders
-  List<int> howMuchDayProviderHas = []; // this get it from dataBase
-  // 0  1  2  3  4  5  6   index of day
-  // Sa Mn Tu Wn Th Fr St  Days by index
-
+  List<int> howMuchDayProviderHas = [];
   MyAppServices myAppServices = Get.find();
   List<DateCard> listDateCard = [
     for (int index = 0; index <= 7; index++)
@@ -60,7 +58,6 @@ class OrderController extends GetxController {
           }
         }
         howMuchDayProviderHas = ayshe(howMuchDayProviderHas);
-        print(howMuchDayProviderHas);
       } else {
         statusRequest == StatusRequest.failure;
       }
@@ -84,11 +81,29 @@ class OrderController extends GetxController {
             listHoursMap[key] = List.from(values);
           }
         });
-        print("====================${listHoursMap}");
-        print("====================${ayshe1(listHoursMap)}");
         listHoursMap = ayshe1(listHoursMap);
       } else {
         statusRequest == StatusRequest.failure;
+      }
+    }
+    update();
+  }
+
+  getLocation() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await addLocationData.getData(
+      myAppServices.sharedPreferences.getInt("ID").toString(),
+    );
+    print(response);
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response["Status"] == "Success") {
+        List data = response['data'];
+        locations.addAll(data.map((e) => LocationViewModel.fromJson(e)));
+      } else if (response["Status"] == "Failed") {
+        statusRequest == StatusRequest.failure;
+        update();
       }
     }
     update();
@@ -118,39 +133,7 @@ class OrderController extends GetxController {
     'ديسمبر'
   ];
 
-  List<HoursCard> listHours = [
-    for (int index = 8; index <= 11; index++)
-      HoursCard(amOrPm: "Am", hour: index),
-    HoursCard(amOrPm: "Pm", hour: 12),
-    for (int index = 1; index <= 11; index++)
-      HoursCard(amOrPm: "Pm", hour: index)
-  ];
-  Map<String, List<HoursCard>> listHoursMaps = {
-    '0': [
-      HoursCard(amOrPm: "Am", hour: 2),
-      HoursCard(amOrPm: "Am", hour: 3),
-      HoursCard(amOrPm: "Am", hour: 4),
-      HoursCard(amOrPm: "Am", hour: 5)
-    ],
-    '1': generateHoursCards(),
-    '2': [HoursCard(amOrPm: "Am", hour: 2)],
-    '3': generateHoursCards(),
-    '4': generateHoursCards(),
-    '5': generateHoursCards(),
-    '6': generateHoursCards(),
-    '7': generateHoursCards(), // this for Last Container Add time
-  };
   // here should I give Provider Id to data Base then I get the Provider Class
-  List<String> listOfLocation = [
-    "موكامبو",
-    "شارع النيل",
-    "فرقان",
-    "اشرفية",
-    "اعظمية",
-    "شهباء",
-    "زهراء",
-    "ميدان",
-  ];
   int? selectedLocation = 0;
   void updateSelectedLocation(int? item) {
     selectedLocation = item;
@@ -160,7 +143,6 @@ class OrderController extends GetxController {
   void updateHisDate(DateTime hisDate) {
     this.hisDate = hisDate;
     showHisDate = true;
-    print(hisDate);
     update();
   }
 
@@ -184,14 +166,75 @@ class OrderController extends GetxController {
     } else {
       selectedHourCard = hour;
     }
+    String time = "${(listHoursMap[selectedDayCard.toString()]![hour])}";
+    String year = DateTime.now().year.toString();
+    String month = DateTime.now().month.toString();
+    String day = DateTime.now().day.toString();
+    String date =
+        DateTime.now().month < 10 ? "$year-0$month-$day" : "$year-$month-$day";
+
+    int hours = int.parse(time);
+
+    DateTime dateTime = DateTime.parse(date);
+    dateTime = dateTime.add(Duration(
+      days: selectedDayCard,
+      hours: hours,
+    ));
+
+    print("${dateTime.toString()}");
+
+    print(locations[selectedLocation!].locId);
+
+    // print(DateTime.now());
+    update();
+  }
+
+  sendOrder() async {
+    String time =
+        "${(listHoursMap[selectedDayCard.toString()]![selectedHourCard])}";
+    String year = DateTime.now().year.toString();
+    String month = DateTime.now().month.toString();
+    String day = DateTime.now().day.toString();
+    String date =
+        DateTime.now().month < 10 ? "$year-0$month-$day" : "$year-$month-$day";
+
+    int hours = int.parse(time);
+
+    DateTime dateTime = DateTime.parse(date);
+    dateTime = dateTime.add(Duration(
+      days: selectedDayCard,
+      hours: hours,
+    ));
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await orderData.getData(
+      catID.toString(),
+      catID.toString(),
+      serviceID.toString(),
+      providerID.toString(),
+      dateTime.toString(),
+      myAppServices.sharedPreferences.getInt("ID").toString(),
+      locations[selectedLocation!].locId.toString(),
+    );
+    print(response);
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response["Status"] == "Sucsess") {
+        Get.offAll(() => const ThxForOrder());
+      } else if (response["Status"] == "Failed") {
+        statusRequest == StatusRequest.failure;
+        update();
+      }
+    }
     update();
   }
 
   @override
   void onInit() {
-    super.onInit();
     getDataDays();
     getDataHours();
+    getLocation();
+    super.onInit();
   }
 
   @override
@@ -254,18 +297,4 @@ class OrderController extends GetxController {
       hour: HoursCard(amOrPm: 'Pm', hour: 11),
       userId: myAppServices.sharedPreferences.getInt("ID"),
       idProvider: providerID);
-}
-
-List<HoursCard> generateHoursCards() {
-  List<HoursCard> hoursCards = [];
-
-  for (int index = 8; index <= 11; index++) {
-    hoursCards.add(HoursCard(amOrPm: "Am", hour: index));
-  }
-  hoursCards.add(HoursCard(amOrPm: "Pm", hour: 12));
-  for (int index = 1; index <= 11; index++) {
-    hoursCards.add(HoursCard(amOrPm: "Pm", hour: index));
-  }
-
-  return hoursCards;
 }

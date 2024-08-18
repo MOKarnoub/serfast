@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:serfast0_1/core/services/getxservices.dart';
 
 class BalanceBox extends StatelessWidget {
   const BalanceBox({super.key});
 
   @override
   Widget build(BuildContext context) {
+    MyAppServices myAppServices = Get.find();
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -12,10 +15,8 @@ class BalanceBox extends StatelessWidget {
         gradient: LinearGradient(
             begin: Alignment.topRight,
             end: FractionalOffset.fromOffsetAndSize(
-              const Offset(20, 40), const Size(140, 40)
-              ),
-            stops: const 
-            [
+                const Offset(20, 40), const Size(140, 40)),
+            stops: const [
               0.1,
               0.3,
               0.5,
@@ -45,7 +46,8 @@ class BalanceBox extends StatelessWidget {
             ),
             child: Text(
               "Savings",
-              style: Theme.of(context).textTheme.titleMedium,),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
           const SizedBox(height: 10),
           Padding(
@@ -55,12 +57,12 @@ class BalanceBox extends StatelessWidget {
               children: [
                 Text(
                   "\$ ",
-                  style: Theme.of(context).textTheme.titleMedium!
-                  .copyWith(
-                    color: Colors.orangeAccent,),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.orangeAccent,
+                      ),
                 ),
                 Text(
-                  "40,542.00",
+                  "${myAppServices.sharedPreferences.getInt('balance')}",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],

@@ -10,7 +10,6 @@ import 'package:serfast0_1/view/widget/my_app_bar.dart';
 import 'package:serfast0_1/view/widget/order/listofdays.dart';
 import 'package:serfast0_1/view/widget/order/listofhours.dart';
 import 'package:serfast0_1/view/widget/order/providercard.dart';
-import '../thx_for_order.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -124,14 +123,14 @@ class OrderScreen extends StatelessWidget {
                                     color: Colors.white.withOpacity(0.75)),
                           ),
                           const SizedBox(height: 20),
-                          // LocationField(controller: orderController),
+                          LocationField(controller: orderController),
                           const SizedBox(height: 20),
                           Padding(
                             padding: const EdgeInsets.only(left: 270, top: 10),
                             child: CustomLoginButton(
                               ButtonText: "Next",
                               onPress: () {
-                                Get.offAll(() => const ThxForOrder());
+                                orderController.sendOrder();
                               },
                             ),
                           )
@@ -143,109 +142,110 @@ class OrderScreen extends StatelessWidget {
   }
 }
 
-// class LocationField extends StatelessWidget {
-//   const LocationField({super.key, required this.controller});
+class LocationField extends StatelessWidget {
+  const LocationField({super.key, required this.controller});
 
-//   final OrderController controller;
+  final OrderController controller;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetBuilder<OrderController>(
-//       builder: (controller) => InkWell(
-//         onTap: () {
-//           showDialog(
-//             context: context,
-//             builder: (context) => buildShowDialog(context, controller),
-//           );
-//         },
-//         child: buildStaticLocationField(controller, context),
-//       ),
-//     );
-//   }
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<OrderController>(
+      builder: (controller) => InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => buildShowDialog(context, controller),
+          );
+        },
+        child: buildStaticLocationField(controller, context),
+      ),
+    );
+  }
 
-//   AbsorbPointer buildStaticLocationField(
-//       OrderController controller, BuildContext context) {
-//     return AbsorbPointer(
-//       absorbing: true,
-//       child: TextField(
-//         decoration: InputDecoration(
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(4),
-//             borderSide: const BorderSide(
-//               style: BorderStyle.solid,
-//               color: Colors.white,
-//               width: 5,
-//             ),
-//           ),
-//           hintText: controller.listOfLocation[controller.selectedLocation!],
-//           hintStyle: Theme.of(context).textTheme.bodySmall,
-//           suffixIcon: IconButton(
-//             icon: const Icon(Icons.arrow_drop_down),
-//             onPressed: () {},
-//           ),
-//         ),
-//         // ),
-//       ),
-//     );
-//   }
+  AbsorbPointer buildStaticLocationField(
+      OrderController controller, BuildContext context) {
+    return AbsorbPointer(
+      absorbing: true,
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: const BorderSide(
+              style: BorderStyle.solid,
+              color: Colors.white,
+              width: 5,
+            ),
+          ),
+          hintText:
+              controller.locations[controller.selectedLocation!].locationName,
+          hintStyle: Theme.of(context).textTheme.bodySmall,
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.arrow_drop_down),
+            onPressed: () {},
+          ),
+        ),
+        // ),
+      ),
+    );
+  }
 
-//   Container buildShowDialog(BuildContext context, OrderController controller) {
-//     return Container(
-//       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-//       child: Directionality(
-//         textDirection: TextDirection.rtl,
-//         child: ClipRRect(
-//           borderRadius: BorderRadius.circular(15),
-//           child: Scaffold(
-//             appBar: AppBar(
-//                 leading: IconButton(
-//                   onPressed: () {
-//                     Get.back();
-//                   },
-//                   icon: const Icon(Icons.arrow_back_ios_new),
-//                 ),
-//                 flexibleSpace: Container(
-//                   decoration: BoxDecoration(
-//                     color: Theme.of(context).primaryColorLight,
-//                     borderRadius: const BorderRadius.only(
-//                         topLeft: Radius.circular(15),
-//                         topRight: Radius.circular(15)),
-//                   ),
-//                 ),
-//                 actions: [
-//                   IconButton(
-//                     icon: const Icon(Icons.gps_fixed),
-//                     onPressed: () {},
-//                   ),
-//                 ]),
-//             body: Container(
-//               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-//               color: Theme.of(context).colorScheme.surface,
-//               child: ListView.separated(
-//                 itemCount: controller.listOfLocation.length,
-//                 separatorBuilder: (context, index) =>
-//                     const SizedBox(height: 10),
-//                 itemBuilder: (context, index) => ListTile(
-//                   onTap: () {
-//                     controller.updateSelectedLocation(index);
-//                     Get.back();
-//                   },
-//                   title: Text(
-//                     controller.listOfLocation[index],
-//                     style: Theme.of(context)
-//                         .textTheme
-//                         .bodySmall!
-//                         .copyWith(color: Colors.white),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  Container buildShowDialog(BuildContext context, OrderController controller) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Scaffold(
+            appBar: AppBar(
+                leading: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new),
+                ),
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColorLight,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.gps_fixed),
+                    onPressed: () {},
+                  ),
+                ]),
+            body: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              color: Theme.of(context).colorScheme.surface,
+              child: ListView.separated(
+                itemCount: controller.locations.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                itemBuilder: (context, index) => ListTile(
+                  onTap: () {
+                    controller.updateSelectedLocation(index);
+                    Get.back();
+                  },
+                  title: Text(
+                    controller.locations[index].locationName!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 // Container buildIconAdd(BuildContext context) {
 //   return Container(

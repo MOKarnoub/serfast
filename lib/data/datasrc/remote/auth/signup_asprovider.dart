@@ -7,16 +7,22 @@ class SignupAsProviderData {
   SignupAsProviderData(this.crud);
 
   postData(
-      String categoryName1,
-      String categoryName2,
-      String categoryName3,
-      String serviceName1,
-      String serviceName2,
-      String servicename3,
-      String userID,
-      String about,
-      String lat,
-      String long) async {
+    String categoryName1,
+    String categoryName2,
+    String categoryName3,
+    String serviceName1,
+    String serviceName2,
+    String servicename3,
+    String userID,
+    String about,
+    String lat,
+    String long,
+    String first_name,
+    String last_name,
+    String services,
+    String number,
+    String providerEmail,
+  ) async {
     var respons = await crud.postData(AppLink.linksginupasprovider, {
       "Category_name1": categoryName1,
       "Category_name2": categoryName2,
@@ -28,6 +34,11 @@ class SignupAsProviderData {
       "about": about,
       "longitude": long,
       "latitude": lat,
+      "first_name": first_name,
+      "last_name": last_name,
+      "services": services,
+      "number": number,
+      "providerEmail": providerEmail,
     });
     return respons.fold((l) => l, (r) => r);
   }

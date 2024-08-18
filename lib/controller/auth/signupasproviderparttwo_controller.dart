@@ -60,16 +60,22 @@ class SignupasproviderparttwoController extends GetxController {
   signup() async {
     statusRequest = StatusRequest.loading;
     var response = await signupAsProviderData.postData(
-        categoryName1,
-        categoryName2,
-        categoryName3,
-        serviceName1,
-        serviceName2,
-        serviceName3,
-        myAppServices.sharedPreferences.getInt("ID").toString(),
-        about,
-        long.toString(),
-        lat.toString());
+      categoryName1,
+      categoryName2,
+      categoryName3,
+      serviceName1,
+      serviceName2,
+      serviceName3,
+      myAppServices.sharedPreferences.getInt("ID").toString(),
+      about,
+      long.toString(),
+      lat.toString(),
+      myAppServices.sharedPreferences.getString('userfname').toString(),
+      myAppServices.sharedPreferences.getString('userlname').toString(),
+      serviceName1,
+      myAppServices.sharedPreferences.getString('phonenumber').toString(),
+      myAppServices.sharedPreferences.getString('email').toString(),
+    );
     print(response);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

@@ -21,7 +21,8 @@ class Signupctrlimp extends Signupctrl {
   late TextEditingController email;
   late TextEditingController phoneNumber;
   late TextEditingController password;
-  late TextEditingController location;
+  late TextEditingController location =
+      TextEditingController(text: "kdjfkldsjfkjd");
   StatusRequest? statusRequest;
 
   @override
@@ -63,6 +64,8 @@ class Signupctrlimp extends Signupctrl {
               .setString("birthday", response['data']['Birthday'].toString());
           myAppServices.sharedPreferences
               .setString("prov_id", response['data']['prov_id'].toString());
+          myAppServices.sharedPreferences
+              .setInt("balance", response['data']['balance']);
           Get.offNamed(AppRoute.emailVerfiyCode,
               arguments: [AppRoute.successSignup, email.text]);
         } else if (response["Status"] == "Failed") {

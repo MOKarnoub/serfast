@@ -109,17 +109,17 @@ class SignUp extends GetView<Signupctrlimp> {
                                   return validInput(value!, 20, 8, "Password");
                                 },
                               ),
-                              const SizedBox(height: 50),
-                              CustomSignupTf(
-                                label: "Location",
-                                hint: "Enter Your Location",
-                                preFixIcon: Icons.location_on_outlined,
-                                textInputType: TextInputType.name,
-                                mycontroller: signupCtrl.location,
-                                myvalidator: (value) {
-                                  return validInput(value!, 30, 4, "Location");
-                                },
-                              ),
+                              const SizedBox(height: 10),
+                              // CustomSignupTf(
+                              //   label: "Location",
+                              //   hint: "Enter Your Location",
+                              //   preFixIcon: Icons.location_on_outlined,
+                              //   textInputType: TextInputType.name,
+                              //   mycontroller: signupCtrl.location,
+                              //   myvalidator: (value) {
+                              //     return validInput(value!, 30, 4, "Location");
+                              //   },
+                              // ),
                               const SizedBox(height: 20),
                               CustomLoginButton(
                                 ButtonText: "Sign Up",

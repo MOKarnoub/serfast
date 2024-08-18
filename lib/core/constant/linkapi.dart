@@ -49,4 +49,6 @@ class AppLink {
       "$linkservername/location/delete_location.php";
   static const String linkofcategorieserviceames =
       "$linkservername/categoriesServiceNames.php";
+  static const String linkofsendorder = "$linkservername/insert_order.php";
+  static const String linkoforderdddd = "$linkservername/order_properities.php";
 }

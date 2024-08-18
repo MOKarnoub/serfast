@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 class CustomProviderCard extends StatelessWidget {
   String providerName;
   String serviceDate;
-  double providerRate;
+  int providerRate;
   String providerImage;
+  String status;
   int servicePrice;
-  void Function() onPressedIcon;
+  // void Function() onPressedIcon;
   CustomProviderCard({
     super.key,
     required this.providerName,
@@ -16,7 +17,8 @@ class CustomProviderCard extends StatelessWidget {
     required this.providerRate,
     required this.serviceDate,
     required this.servicePrice,
-    required this.onPressedIcon,
+    required this.status,
+    // required this.onPressedIcon,
   });
 
   @override
@@ -84,29 +86,12 @@ class CustomProviderCard extends StatelessWidget {
                             color: Theme.of(context).primaryColor,
                           )),
                   Text(
-                    "Done",
+                    status,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
               ),
             ],
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: onPressedIcon,
-                  icon: Icon(
-                    Icons.help_outline,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                )
-              ],
-            ),
           ),
         ),
       ],
